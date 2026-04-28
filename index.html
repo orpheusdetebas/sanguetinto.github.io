@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coven Sangue Tinto</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Cinzel:wght@400;600&family=Cinzel+Decorative:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0b08;
+    --bg2: #111009;
+    --gold: #c9a84c;
+    --gold-pale: #e8d5a0;
+    --gold-dim: #7a6330;
+    --text: #e8dfc8;
+    --text-dim: #b0a890;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    height: 100%;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 18px;
+    line-height: 1.75;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 48px 32px;
+  }
+
+  /* ── GLOW DE FUNDO ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 50% 0%, #2a1a0840 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* ── WRAPPER CENTRAL ── */
+  .wrapper {
+    max-width: 560px;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  /* ── ORNAMENTO SUPERIOR ── */
+  .top-ornament {
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    color: var(--gold-dim);
+    font-family: 'Cinzel', serif;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+
+  /* ── TÍTULO ── */
+  h1 {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(1.6rem, 6vw, 2.8rem);
+    font-weight: 400;
+    color: var(--gold);
+    letter-spacing: 0.06em;
+    line-height: 1.25;
+    margin-bottom: 12px;
+  }
+
+  .subtitle {
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--text-dim);
+    letter-spacing: 0.05em;
+    margin-bottom: 48px;
+  }
+
+  /* ── DIVISOR ── */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    margin-bottom: 48px;
+  }
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold-dim));
+  }
+  .divider::after {
+    background: linear-gradient(to left, transparent, var(--gold-dim));
+  }
+  .divider-symbol {
+    color: var(--gold);
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  /* ── LISTA DE LINKS ── */
+  .link-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .link-item {
+    display: block;
+    padding: 18px 28px;
+    border: 1px solid var(--gold-dim);
+    background: var(--bg2);
+    color: var(--text);
+    text-decoration: none;
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    transition: border-color 0.25s, background 0.25s, color 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .link-item::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #2a1a0820, transparent);
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+
+  .link-item:hover {
+    border-color: var(--gold);
+    color: var(--gold-pale);
+    background: #161209;
+  }
+
+  .link-item:hover::before {
+    opacity: 1;
+  }
+
+  .link-subtitle {
+    display: block;
+    font-family: Georgia, serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+    text-transform: none;
+    color: var(--text-dim);
+    margin-top: 4px;
+    font-style: italic;
+    font-weight: normal;
+  }
+
+  .link-item:hover .link-subtitle {
+    color: var(--text);
+  }
+
+  /* ── RODAPÉ ── */
+  .footer-ornament {
+    margin-top: 56px;
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    color: var(--gold-dim);
+    font-family: 'Cinzel', serif;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 480px) {
+    body { padding: 40px 20px; }
+    .link-item { padding: 16px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+
+  <div class="top-ornament">✦ Tradição Heleno-Kemética ✦</div>
+
+  <h1>Coven Sangue Tinto</h1>
+  <p class="subtitle">Práticas, rituais e reflexões teológicas</p>
+
+  <div class="divider"><span class="divider-symbol">⁕</span></div>
+
+  <nav class="link-list">
+
+    <!-- LINK 1 — substitua href="#" pelo URL desejado -->
+    <a href="#" class="link-item">
+      Título do Primeiro Link
+      <span class="link-subtitle">Descrição breve opcional</span>
+    </a>
+
+    <!-- LINK 2 -->
+    <a href="#" class="link-item">
+      Título do Segundo Link
+      <span class="link-subtitle">Descrição breve opcional</span>
+    </a>
+
+    <!-- LINK 3 -->
+    <a href="#" class="link-item">
+      Título do Terceiro Link
+      <span class="link-subtitle">Descrição breve opcional</span>
+    </a>
+
+    <!-- Para adicionar mais links, copie o bloco abaixo e cole aqui:
+
+    <a href="#" class="link-item">
+      Título do Novo Link
+      <span class="link-subtitle">Descrição breve opcional</span>
+    </a>
+
+    -->
+
+  </nav>
+
+  <div class="footer-ornament">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+</div>
+
+</body>
+</html>
