@@ -49,7 +49,7 @@
   }
 
   /* === TEMA ESCURO === */
-  body.dark-theme {
+   body.dark-theme {
     --bg: #0d0b08;
     --bg2: #111009;
     --gold: #c9a84c;
@@ -80,6 +80,43 @@
     color: var(--text);
   }
 
+  /* ==============================================
+     MODO CLARO: títulos principais em tom VINHO
+     MODO ESCURO: títulos mantém DOURADO original
+     ============================================== */
+  
+  /* MODO CLARO - títulos em vinho/bordô */
+  body.light-theme h1,
+  body.light-theme .header-ornament,
+  body.light-theme .intro-block h2,
+  body.light-theme .elements-section h2,
+  body.light-theme .closing h2 {
+    color: #6b1a2a;
+  }
+
+  body.light-theme .subtitle,
+  body.light-theme .suit-desc,
+  body.light-theme .suit-element-tag {
+    color: #8b2a3a;
+  }
+
+  body.light-theme .card-title {
+    color: #6b1a2a;
+  }
+
+  /* MODO ESCURO - títulos em dourado (mantém o original) */
+  body.dark-theme h1,
+  body.dark-theme .header-ornament,
+  body.dark-theme .intro-block h2,
+  body.dark-theme .elements-section h2,
+  body.dark-theme .closing h2,
+  body.dark-theme .subtitle,
+  body.dark-theme .suit-desc,
+  body.dark-theme .suit-element-tag,
+  body.dark-theme .card-title {
+    color: var(--gold-pale);
+  }
+  
   /* aplicação das variáveis */
   body {
     background-color: var(--bg);
