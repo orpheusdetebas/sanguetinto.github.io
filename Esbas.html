@@ -1,0 +1,964 @@
+      <!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Esbás e Rituais de Lua Cheia — Coven Sangue Tinto</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  /* ── TEMA ESCURO ── */
+  [data-theme="dark"] {
+    --bg: #0a0608;
+    --bg2: #110d0f;
+    --gold: #c8a96e;
+    --gold-light: #e8cc99;
+    --gold-dim: #7a6240;
+    --crimson: #8b1a2a;
+    --crimson-light: #c42a3e;
+    --amarelo: #e8d060;
+    --amarelo-dim: #8a7a20;
+    --alabaster: #f0ead8;
+    --text: #d8ccb0;
+    --text-dim: #b0a484;
+    --moon: #e8dfc8;
+
+    --badge-fogo-text: #e06060; --badge-fogo-border: #8b2020;
+    --badge-terra-text: #90c060; --badge-terra-border: #4a6432;
+    --badge-ar-text: #e8d060; --badge-ar-border: #8a7a20;
+    --badge-agua-text: #70b8d8; --badge-agua-border: #1e5078;
+
+    --glyph-fogo: #e06060;
+    --glyph-terra: #90c060;
+    --glyph-ar: #e8d060;
+    --glyph-agua: #70b8d8;
+
+    --card-bg: var(--bg2);
+    --card-border: rgba(200,169,110,0.12);
+    --card-border-hover: var(--gold-dim);
+    --items-bg: rgba(255,255,255,0.03);
+    --items-border: rgba(255,255,255,0.07);
+    --section-line: rgba(200,169,110,0.15);
+    --ritual-border: rgba(200,169,110,0.2);
+    --expand-bg: rgba(200,169,110,0.05);
+    --expand-border: rgba(200,169,110,0.15);
+    --expand-hover: rgba(200,169,110,0.1);
+    --invocation-bg: rgba(200,169,110,0.04);
+    --invocation-border: rgba(200,169,110,0.12);
+    --steps-border: rgba(255,255,255,0.05);
+    --footer-border: rgba(200,169,110,0.1);
+    --deity-bg: rgba(200,169,110,0.07);
+    --deity-border: rgba(200,169,110,0.18);
+
+    --toggle-bg: #1e1a14;
+    --toggle-border: #7a6240;
+    --toggle-text: #b0a484;
+    --toggle-active-bg: #7a6240;
+    --toggle-active-text: #0a0608;
+  }
+
+  /* ── TEMA CLARO ── */
+  [data-theme="light"] {
+    --bg: #f5f0e6;
+    --bg2: #ede7da;
+    --gold: #6b2020;
+    --gold-light: #4a1414;
+    --gold-dim: #8a3a3a;
+    --crimson: #8b1a2a;
+    --crimson-light: #c42a3e;
+    --amarelo: #7a7010;
+    --amarelo-dim: #5a5010;
+    --alabaster: #1a1208;
+    --text: #1a1208;
+    --text-dim: #4a3c2c;
+    --moon: #2a1a10;
+
+    --badge-fogo-text: #8a2010; --badge-fogo-border: #c04030;
+    --badge-terra-text: #2a5020; --badge-terra-border: #60904a;
+    --badge-ar-text: #6a6010; --badge-ar-border: #a09020;
+    --badge-agua-text: #1a4868; --badge-agua-border: #4080a8;
+
+    --glyph-fogo: #9a2010;
+    --glyph-terra: #2a5820;
+    --glyph-ar: #6a6010;
+    --glyph-agua: #1a4868;
+
+    --card-bg: var(--bg2);
+    --card-border: rgba(100,50,30,0.15);
+    --card-border-hover: #8a3a3a;
+    --items-bg: rgba(0,0,0,0.03);
+    --items-border: rgba(0,0,0,0.08);
+    --section-line: rgba(100,50,30,0.15);
+    --ritual-border: rgba(100,50,30,0.25);
+    --expand-bg: rgba(100,50,30,0.05);
+    --expand-border: rgba(100,50,30,0.15);
+    --expand-hover: rgba(100,50,30,0.1);
+    --invocation-bg: rgba(100,50,30,0.04);
+    --invocation-border: rgba(100,50,30,0.15);
+    --steps-border: rgba(0,0,0,0.06);
+    --footer-border: rgba(100,50,30,0.12);
+    --deity-bg: rgba(100,50,30,0.06);
+    --deity-border: rgba(100,50,30,0.18);
+
+    --toggle-bg: #e0d8c4;
+    --toggle-border: #9a6a5a;
+    --toggle-text: #5a3a2a;
+    --toggle-active-bg: #6b2020;
+    --toggle-active-text: #f5f0e6;
+  }
+
+  /* ── TOGGLE ── */
+  .theme-toggle {
+    position: fixed;
+    top: 22px;
+    right: 24px;
+    z-index: 200;
+    display: flex;
+    background: var(--toggle-bg);
+    border: 1px solid var(--toggle-border);
+    transition: background 0.35s, border-color 0.35s;
+  }
+  .theme-btn {
+    padding: 7px 15px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    color: var(--toggle-text);
+    transition: all 0.3s ease;
+  }
+  .theme-btn.active {
+    background: var(--toggle-active-bg);
+    color: var(--toggle-active-text);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 20px;
+    line-height: 1.7;
+    overflow-x: hidden;
+    transition: background 0.35s ease, color 0.35s ease;
+  }
+
+  /* Stars background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 10% 20%, rgba(200,169,110,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 30% 60%, rgba(200,169,110,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 50% 10%, rgba(240,234,216,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 70% 80%, rgba(200,169,110,0.2) 0%, transparent 100%),
+      radial-gradient(1px 1px at 85% 35%, rgba(240,234,216,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 20% 90%, rgba(200,169,110,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 90% 55%, rgba(240,234,216,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 45% 75%, rgba(200,169,110,0.2) 0%, transparent 100%),
+      radial-gradient(1px 1px at 65% 25%, rgba(240,234,216,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 5% 50%, rgba(200,169,110,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 78% 12%, rgba(240,234,216,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 35% 45%, rgba(200,169,110,0.2) 0%, transparent 100%),
+      radial-gradient(2px 2px at 55% 88%, rgba(240,234,216,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 92% 72%, rgba(200,169,110,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 15% 38%, rgba(240,234,216,0.3) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Header */
+  header {
+    position: relative;
+    text-align: center;
+    padding: 80px 20px 60px;
+    z-index: 1;
+  }
+
+  .moon-ornament {
+    font-size: 72px;
+    display: block;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 30px rgba(200,169,110,0.6));
+    animation: moonPulse 4s ease-in-out infinite;
+  }
+
+  @keyframes moonPulse {
+    0%, 100% { filter: drop-shadow(0 0 30px rgba(200,169,110,0.6)); }
+    50% { filter: drop-shadow(0 0 60px rgba(232,220,200,0.9)); }
+  }
+
+  header h1 {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(1.4rem, 4vw, 2.8rem);
+    color: var(--gold-light);
+    letter-spacing: 0.08em;
+    line-height: 1.3;
+    text-shadow: 0 0 40px rgba(200,169,110,0.4);
+  }
+
+  header h2 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(0.85rem, 2vw, 1.1rem);
+    color: var(--gold-dim);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-top: 12px;
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 40px auto;
+    max-width: 500px;
+    padding: 0 20px;
+  }
+
+  .divider-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold-dim), transparent);
+  }
+
+  .divider-glyph {
+    color: var(--gold);
+    font-size: 20px;
+  }
+
+  /* Intro */
+  .intro {
+    max-width: 720px;
+    margin: 0 auto 60px;
+    padding: 0 24px;
+    text-align: center;
+    color: var(--text-dim);
+    font-style: italic;
+    font-size: 1.15rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Sign grid */
+  .signs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 16px 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Sign card */
+  .sign-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.3s, transform 0.3s, background 0.35s;
+  }
+
+  .sign-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.4s;
+    z-index: 0;
+  }
+
+  .sign-card:hover {
+    border-color: var(--card-border-hover);
+    transform: translateY(-2px);
+    z-index: 2;
+  }
+
+  .sign-card:hover::before { opacity: 1; }
+
+  /* Element colors */
+  .sign-card[data-element="fogo"]::before {
+    background: radial-gradient(ellipse at top left, rgba(139,26,42,0.15) 0%, transparent 60%);
+  }
+  .sign-card[data-element="terra"]::before {
+    background: radial-gradient(ellipse at top left, rgba(74,100,50,0.15) 0%, transparent 60%);
+  }
+  .sign-card[data-element="ar"]::before {
+    background: radial-gradient(ellipse at top left, rgba(94,88,26,0.2) 0%, transparent 60%);
+  }
+  .sign-card[data-element="agua"]::before {
+    background: radial-gradient(ellipse at top left, rgba(26,60,94,0.2) 0%, transparent 60%);
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 24px 24px 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .sign-glyph {
+    font-size: 2.8rem;
+    line-height: 1;
+    filter: drop-shadow(0 0 8px currentColor);
+    flex-shrink: 0;
+  }
+
+  .sign-info {
+    flex: 1;
+  }
+
+  .sign-name {
+    font-family: 'Cinzel', serif;
+    font-size: 1.35rem;
+    color: var(--gold-light);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+
+  .sign-meta {
+    font-size: 0.9rem;
+    color: var(--gold-dim);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-family: 'Cinzel', serif;
+    margin-top: 2px;
+  }
+
+  .sign-element-badge {
+    font-size: 0.72rem;
+    padding: 3px 10px;
+    border: 1px solid;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-family: 'Cinzel', serif;
+    border-radius: 20px;
+    flex-shrink: 0;
+  }
+
+  [data-element="fogo"] .sign-element-badge { color: var(--badge-fogo-text); border-color: var(--badge-fogo-border); }
+  [data-element="terra"] .sign-element-badge { color: var(--badge-terra-text); border-color: var(--badge-terra-border); }
+  [data-element="ar"] .sign-element-badge { color: var(--badge-ar-text); border-color: var(--badge-ar-border); }
+  [data-element="agua"] .sign-element-badge { color: var(--badge-agua-text); border-color: var(--badge-agua-border); }
+
+  .card-body {
+    padding: 16px 24px 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Deities row */
+  .deities-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+
+  .deity-tag {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--deity-bg);
+    border: 1px solid var(--deity-border);
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 0.92rem;
+    color: var(--gold);
+    font-family: 'Cinzel', serif;
+  }
+
+  .deity-tradition {
+    font-size: 0.75rem;
+    color: var(--gold-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* Section label */
+  .section-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin: 14px 0 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--section-line);
+  }
+
+  /* Items list */
+  .items-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 4px;
+  }
+
+  .items-list li {
+    font-size: 0.97rem;
+    color: var(--text);
+    background: var(--items-bg);
+    border: 1px solid var(--items-border);
+    padding: 2px 10px;
+    border-radius: 3px;
+  }
+
+  /* Ritual text */
+  .ritual-text {
+    font-size: 1.05rem;
+    color: var(--text);
+    line-height: 1.7;
+    border-left: 2px solid var(--ritual-border);
+    padding-left: 14px;
+    margin: 8px 0 0;
+  }
+
+  /* Expanded state */
+  .card-extra {
+    display: none;
+    padding: 0 24px 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .sign-card.expanded .card-extra { display: block; }
+
+  .expand-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    margin-top: 16px;
+    padding: 10px;
+    background: var(--expand-bg);
+    border: 1px solid var(--expand-border);
+    border-radius: 3px;
+    color: var(--gold-dim);
+    font-family: 'Cinzel', serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    z-index: 1;
+  }
+
+  .expand-btn:hover {
+    background: var(--expand-hover);
+    color: var(--gold);
+  }
+
+  .expand-arrow {
+    transition: transform 0.3s;
+    font-size: 10px;
+  }
+
+  .sign-card.expanded .expand-arrow { transform: rotate(180deg); }
+
+  /* Invocation */
+  .invocation {
+    background: var(--invocation-bg);
+    border: 1px solid var(--invocation-border);
+    border-radius: 4px;
+    padding: 16px;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--moon);
+    line-height: 1.85;
+    white-space: pre-line;
+    text-align: center;
+    margin-top: 4px;
+  }
+
+  /* Steps */
+  .steps-list {
+    list-style: none;
+    counter-reset: steps;
+  }
+
+  .steps-list li {
+    counter-increment: steps;
+    display: flex;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--steps-border);
+    font-size: 1.02rem;
+    color: var(--text);
+    align-items: flex-start;
+  }
+
+  .steps-list li:last-child { border-bottom: none; }
+
+  .steps-list li::before {
+    content: counter(steps);
+    color: var(--gold-dim);
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    min-width: 20px;
+    text-align: right;
+    margin-top: 3px;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--gold-dim);
+    font-family: 'Cinzel', serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    border-top: 1px solid var(--footer-border);
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Glyph colors by element */
+  [data-element="fogo"] .sign-glyph { color: var(--glyph-fogo); }
+  [data-element="terra"] .sign-glyph { color: var(--glyph-terra); }
+  [data-element="ar"] .sign-glyph { color: var(--glyph-ar); }
+  [data-element="agua"] .sign-glyph { color: var(--glyph-agua); }
+
+  @media (max-width: 600px) {
+    .signs-grid { grid-template-columns: 1fr; padding: 0 8px 60px; }
+    header h1 { font-size: 1.3rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="theme-toggle">
+  <button class="theme-btn" id="btn-dark" onclick="setTheme('dark')">Noturno</button>
+  <button class="theme-btn active" id="btn-light" onclick="setTheme('light')">Diurno</button>
+</div>
+
+<header>
+  <span class="moon-ornament">🌕</span>
+  <h1>Rituais de Lua Cheia</h1>
+  <h2>Coven Sangue Tinto · Tradição Helênico-Kemética</h2>
+</header>
+
+<div class="divider">
+  <span class="divider-line"></span>
+  <span class="divider-glyph">☽ ✦ ☾</span>
+  <span class="divider-line"></span>
+</div>
+
+<p class="intro">
+  Cada Lua Cheia manifesta sua luz através de um signo, revelando a qualidade particular da iluminação que ela traz. A Lua Cheia na astrologia tradicional marca o momento em que a Lua se opõe ao Sol — os dois luminares em pontos opostos do zodíaco. Na cosmologia ptolomaica, a Lua é o astro mais próximo da Terra, aquele que media o mundo supralunar (eterno, imutável) e o mundo sublunar (o domínio do devir). É por meio dela que as influências celestes descem e se corporificam. Cheia, ela recebe a luz solar em sua totalidade e a derrama sobre o mundo sem reservas.
+  Estes rituais integram as correspondências planetárias da astrologia tradicional com os Theoi e Neteru cultuados pelo Coven Sangue Tinto.
+  Os ritos aqui contidos não estão completos e oriento que cada um realize seus próprios rituais de abertura e fechamento ritual. Em nossa tradição realizamos a invocação de Héstia e consagração da água lustral em todos rito. Sugiro também que sejam lidos os hinos das divindades invocadas em cada ritual, que não constam aqui.
+  Que a Lua Cheia nos agracie e os Deuses nos sejam propícios.
+  Evoé
+</p>
+
+<div class="signs-grid" id="signsGrid"></div>
+
+<footer>✦ &nbsp; Coven Sangue Tinto &nbsp; · &nbsp; Sanguetinto.wordpress.com &nbsp; ✦</footer>
+
+<script>
+const signs = [
+  {
+    name: "Áries",
+    glyph: "♈",
+    element: "fogo",
+    quality: "Cardinal",
+    planeta: "Marte",
+    planGlyph: "♂",
+    deities: [
+      { name: "Ares", tradition: "Helênico" },
+      { name: "Hórus", tradition: "Kemético" }
+    ],
+    tema: "Força, coragem, vontade primordial",
+    materiais: ["Vela vermelha", "Quartzo sangue (heliotropo)", "Ferro ou faca ritual", "Incenso de dragão-sangue", "Alecrim", "Sal Grosso"],
+    cores: ["Vermelho", "Escarlate", "Preto"],
+    dignidade: "Peregrina",
+    ritual_breve: "Rito de força e vontade. A Lua em Áries ilumina o campo de batalha interior, aquilo que precisa de coragem para ser enfrentado e encarado. Nem sempre estamos prontos  para reconhecer nossos desejos e esse é o primeiro passo para batalhar por isso.",
+    invocacao: `Ares, filho de Zeus e Hera,\nsenhor da vanguarda e do escudo partido \nHórus, falcão do horizonte, cujo olho tudo vê e tudo persiste \nvós que guardais a centelha do início,\niluminai esta lua com vossa chama.\nQue meu propósito seja escudo e minha vontade seja lança\nÉsto.`,
+    passos: [
+      "Banho ritual com água fervida com alecrim e sal grosso. Áries inaugura o zodíaco e marca o limiar do ciclo. Este banho serve para a catarse do miasma (poluição ritual) acumulado e para a renovação do pneuma (sopro vital, sob a dynamis (potência) de Ares e de Hórus.",
+      "Acenda a vela vermelha invocando Ares/Hórus. Posicione o objeto de ferro à frente como representação da vontade.",
+      "Coloque-se a meditar e deixe sua alma voar. O tema desta meditação envolve seus desejos negados, aquilo que está em seu íntimo mas que você se percebe barrando. Quais sãos medos em tentar realizar tal desejo? São as pressões sociais? O medo de falhar? Deixe Hórus lhe guiar por esta jornada, que ele seja luz que ilumina o que você até então não vê",
+      "Posteriormente a isso, tendo ciência de seu desejo e das barreiras que te impedem de prosseguir, empunhe sua faca ritual. É momento de banir, cortar aquilo que te impede. Reflita sobre como quer tirar essas barreiras de sua vida, sinta a dynamis de Ares em torno da faca e corte o ar entoando: 'ASKION KATASKION LIX TETRAX DANAMENEUS AISION'",
+      "Agradeça às divindades e finalize o rito."
+    ]
+  },
+  {
+    name: "Touro",
+    glyph: "♉",
+    element: "terra",
+    quality: "Fixo",
+    planeta: "Vênus",
+    planGlyph: "♀",
+    deities: [
+      { name: "Afrodite & Deméter", tradition: "Helênico" },
+      { name: "Hathor", tradition: "Kemético" }
+    ],
+    tema: "Abundância, sensorialidade, enraizamento sagrado",
+    materiais: ["Vela verde ou vermelha", "Mel", "Vaso de Planta com terra", "Incenso de rosa ou sândalo", "Pão ou frutas", "Vinho"],
+    cores: ["Verde", "Terracota", "Dourado"],
+    dignidade: "Exaltação (lua exaltada)",
+    ritual_breve: "A Lua exaltada em Touro derrama a mais rica benção venusiana. Rito de gratidão, abundância e consagração dos prazeres legítimos.",
+    invocacao: `Afrodite Pandêmos, senhora do fruto maduro,\nDeméter, mãe do grão que nasce no futuro \nHathor, a Dourada, dançando no horizonte te conjuro \nNesta lua que encontra sua morada exaltada,\nvós que conheceis o peso sagrado de cada vontade realizada,\nabençoai esta oferenda com vossa riqueza consagrada.\nQue a terra seja minha testemunha e o mel, minha aliança selada.`,
+    passos: [
+      "Prepare um altar com comida, flores e terra. Coma conscientemente uma fruta ou um pão, estando presente no momento, sentindo o gosto, o sabor, a textura e as sensações. Perceba o ato de se alimentar como um ato de conexão divina.",
+      "Unte a vela com mel. Acenda invocando Afrodite/Deméter/Hathor.",
+      "Coloque as mãos na terra dentro do vaso. Sinta-se conectado à terra, enraizando se com ela. Reflita sobre a sua existência material, sobre existir e ter um corpo. Sobre das dores e as delícias de ser quem você é. Deixe as Deusas te guiarem pelo mundo sensorial",
+      "Deposite o mel na terra ou em uma vasilha como oferenda às divindades e aos ancestrais da terra.",
+      "Sente-se em silêncio por alguns minutos. Encerre com um vinho ou suco derramado como libação."
+    ]
+  },
+  {
+    name: "Gêmeos",
+    glyph: "♊",
+    element: "ar",
+    quality: "Mutável",
+    planeta: "Mercúrio",
+    planGlyph: "☿",
+    deities: [
+      { name: "Hermes", tradition: "Helênico" },
+      { name: "Toth", tradition: "Kemético" }
+    ],
+    tema: "Comunicação, conhecimento, limiares e passagens",
+    materiais: ["Vela amarela e vela laranja", "Pena", "Pergaminho ou papel pardo", "Incenso de lavanda ou olíbano"],
+    cores: ["Amarelo", "Laranja", "Cinza prateado"],
+    dignidade: "Peregrina",
+    ritual_breve: "A Lua em Gêmeos encontra a comunicação na casa de Mercúrio. Nesta lua cheia é realizado um rito de escrita sagrada e mensagem aos mundos.",
+    invocacao: `Hermes Trismegisto, senhor das encruzilhadas celestes,\nToth, escriba do universo, que pesa as palavras como pesa os corações \nPermitam que minha língua não tropece e minha voz seja ouvida.\nPermitam que meus ouvidos escutem e compreendam.\nQue a lua em Gêmeos seja minha tinta e o céu, meu pergaminho.`,
+    passos: [
+      "Acenda as duas velas lado a lado. Cada uma representa um aspecto da dualidade que deseja integrar.",
+      "Escreva no pergaminho uma carta: a um aspecto de si mesmo que deseja ouvir e reconhecer, ou uma mensagem para o mundo invisível.",
+      "Leia a carta em voz alta como se falasse a alguém presente. Não censure o que sair.",
+      "Dobre o papel em forma de pássaro ou envelope. Deposite entre as duas velas.",
+      "Medite sobre a mensagem e em como ela ressoa em você. Segure a pena neste processo, como um lembrete do peso de se coração. Depois queime a carta e deixe as velas queimarem até o fim."
+    ]
+  },
+  {
+    name: "Câncer",
+    glyph: "♋",
+    element: "agua",
+    quality: "Cardinal",
+    planeta: "Lua",
+    planGlyph: "☽",
+    deities: [
+      { name: "Hécate", tradition: "Helênico" },
+      { name: "Ísis", tradition: "Kemético" }
+    ],
+    tema: "Ancestralidade, maternidade sagrada, memória e cura emocional",
+    materiais: ["Vela prateada ou branca", "Água de rio ou chuva", "Pérolas ou conchas", "Leite ou laticínio", "Incenso de mirra ou nardo", "Fotografias de ancestrais", "Objetos de ancestrais"],
+    cores: ["Prateado", "Branco", "Azul pálido"],
+    dignidade: "Domicílio (lua em sua própria casa)",
+    ritual_breve: "A Lua Cheia em Câncer, em seu domicílio, traz uum rito de máxima potência. Câncer é a casa, o ventre, a memória do sangue. Chamamos as matriarcas sagradas e os ancestrais. A Lua é a memória que permite que relembremos nossa história, nossas raízes, nossos mortos.",
+    invocacao: `Hécate, senhora das três encruzilhadas e das chaves do mundo,\nÍsis, que reagrupa os membros de Osíris e nunca esquece o seu amor \nNesta lua que reina em sua própria casa,\nvós que conheceis o nome de cada morto e o sabor de cada lágrima,\nse façam presentes.\nQue o ventre da noite nos acolha e que as memórias do sangue nos curem.`,
+    passos: [
+      "Prepare o altar com objetos dos ancestrais — fotografias, objetos herdados, alimentos que os mortos amavam.",
+      "Derrame leite ou água numa tigela como oferenda. Acenda a vela invocando Hécate/Ísis.",
+      "Chame os ancestrais pelo nome. Se não souber nomes, diga 'vós que me precederam, cujo sangue corre em mim, cuja alma lutou por mim, cujo espírito guiou o meu'.",
+      "Sente-se com uma memória difícil ou uma ferida emocional. Deixe-a emergir. Chore se precisar.",
+      "Medite sobre essa memória, permitindo se ser guiado por Hécate e Ísis.",
+      "Agradeça. Despeje a água/leite na terra. Mantenha a vela acesa até consumir."
+    ]
+  },
+  {
+    name: "Leão",
+    glyph: "♌",
+    element: "fogo",
+    quality: "Fixo",
+    planeta: "Sol",
+    planGlyph: "☉",
+    deities: [
+      { name: "Apolo", tradition: "Helênico" },
+      { name: "Rá & Sekhmet", tradition: "Kemético" }
+    ],
+    tema: "Realeza, criatividade, expressão do eu divino",
+    materiais: ["Vela dourada ou âmbar", "Âmbar ou citrino", "Incenso de olíbano (frankincense)", "Coroa ou ornamento dourado", "Papel com uma criação pessoal (poema, desenho, canção)", "Espelho"],
+    cores: ["Dourado", "Âmbar", "Laranja solar"],
+    dignidade: "Peregrina",
+    ritual_breve: "Na Lua Cheia em Leão realizamos um rito de consagração do Eu Divino — o que em nós é imortal, criativo, soberano. Reconhecimento do sopro divino.",
+    invocacao: `Apolo Febo, senhor da lira e do oráculo resplandecente,\nRá, que atravessas o céu na barca de milhões de anos\nSekhmet, leoa ardente, cujo rugido estremece o horizonte\nnesta noite em que a lua bebe da luz solar,\nvós que jamais temeram brilhar nem recuaram diante do que são,\nensinai-me a ocupar o espaço que me é de direito.\nQue minha criação seja ato sagrado e minha presença, oferenda.`,
+    passos: [
+      "Coloque a coroa ou ornamento sobre a cabeça. Fique diante de um espelho por um momento. Reconheça a si como alguém que brilha e tem poder dedo decisão.",
+      "Acenda o incenso e a vela dourada. Leia ou apresente sua criação pessoal como uma oferenda.",
+      "Coloque-se a meditar e deixe sua alma voar com os Deuses solares. O que Apolo, Rá e Sekhmet lhe mostram? Para onde te levam?",
+      "Consagre o âmbar ou citrino como talismã de expressão criativa. Passe-o sobre a fumaça do incenso.",
+      "Encerre com libação de vinho ou suco de laranja."
+    ]
+  },
+  {
+    name: "Virgem",
+    glyph: "♍",
+    element: "terra",
+    quality: "Mutável",
+    planeta: "Mercúrio",
+    planGlyph: "☿",
+    deities: [
+      { name: "Atena", tradition: "Helênico" },
+      { name: "Neith", tradition: "Kemético" }
+    ],
+    tema: "Discernimento, cura, serviço e sabedoria técnica",
+    materiais: ["Vela verde, azul claro ou marrom", "Ervas medicinais (arruda, losna, hortelã)", "Incenso de cedro ou palo santo"],
+    cores: ["Verde-musgo", "Ocre", "Cinza"],
+    dignidade: "Peregrina",
+    ritual_breve: "A Lua em Virgem ilumina o trabalho cotidiano como prática sagrada. Rito de purificação, discernimento e consagração do serviço — o que fazemos com nossas mãos também é oferenda.",
+    invocacao: `Atena, a de olhos de coruja e olhos de górgona.\n Sophia de muitos nomes que guia nossa mente.\nNeith, a Tecelã, cujo tear não cessou desde o início do mundo.\nDeusa Mãe Virgem de Todos, autogerada.\nCom o pensamento e a fala deu luz a Rá.\nCom o cuspe no Abismo deu luz a Apófis\nNesta lua que exige precisão e entrega,\nvós que conheceis a diferença entre o útil e o fútil,\nentre o ato que serve e o gesto que apenas parece\nentre a Ordem e o Caos\nguiai meu discernimento.\nQue meu trabalho seja sagrado e minha presença, serviço.`,
+    passos: [
+      "Limpe o espaço ritual fisicamente (varra, organize). O ato físico é o início do rito.",
+      "Acenda a vela entoando os hinos das duas Deusas. Faça um banho de ervas ou defumação pessoal com as ervas escolhidas.",
+      "Se coloque a meditar e deixe sua alma voar. O tema deste voo é a disciplina, a ordem, a organização:  como você se guia pelo mundo?",
+      "Encerre com um gesto de serviço concreto: preparar alimento, cuidar de uma planta, escrever uma mensagem de cuidado."
+    ]
+  },
+  {
+    name: "Libra",
+    glyph: "♎",
+    element: "ar",
+    quality: "Cardinal",
+    planeta: "Vênus",
+    planGlyph: "♀",
+    deities: [
+      { name: "Hera", tradition: "Helênico" },
+      { name: "Maat", tradition: "Kemético" }
+    ],
+    tema: "Justiça, equilíbrio, aliança e justa ordem nos vínculos",
+    materiais: ["Vela amarela e vela rosa (par)", "Balança ou pedras como símbolo do peso", "Pena branca", "Incenso de rosa e sândalo misturados", "Vinho Rosé ou suco de maçã"],
+    cores: ["Amarelo pálido", "Rosa", "Verde-esmeralda"],
+    dignidade: "Peregrina",
+    ritual_breve: "A Lua em Libra ilumina as relações e o princípio da Maat — a justa ordem. Hera, guardiã dos vínculos sagrados, e Maat, que pesa o que somos na ausência de testemunhas, presidem este rito de equilíbrio e consagração dos laços.",
+    invocacao: `Hera, soberana dos laços que sustentam o mundo,\nguardiã de todo vínculo que foi assumido com verdade\n Deusa que governa os Deuses ao lado de Zeus.\nMaat, cujas penas pesam o que somos na ausência de testemunhas\nnesta lua que exige equidade,\nvós que conheceis o peso de cada promessa e o custo de cada ruptura,\nensinai-me a pesar minha própria balança.\nQue eu seja justo comigo e com aqueles que amo.`,
+    passos: [
+      "Acenda as duas velas — uma de cada lado do altar. Entre elas, coloque a balança ou as pedras.",
+      "Coloque-se a meditar e permita sua alma voar. Deixe as Deusas te guiarem para uma jornada sobre seus vínculos e sobre o equilíbrio",
+      "Escreva em dois papéis: o que você oferece nas suas relações e o que recebe. Leia ambos sem julgamento.",
+      "Use a pena como instrumento: passe-a suavemente sobre a fronte como gesto de leveza (evocação de Maat).",
+      "Se houver um conflito ou desequilíbrio específico, nomeie-o em voz alta. Declare a intenção de reequilibrar e reflita sobre seu papel nessas relações.",
+      "Queime os dois papéis juntos. A fumaça misturada é símbolo de síntese.",
+      "Fala uma libação de vinho rosé ou suco de maçã."
+    ]
+  },
+  {
+    name: "Escorpião",
+    glyph: "♏",
+    element: "agua",
+    quality: "Fixo",
+    planeta: "Marte",
+    planGlyph: "♂",
+    deities: [
+      { name: "Hades & Perséfone", tradition: "Helênico" },
+      { name: "Osíris & Anúbis", tradition: "Kemético" }
+    ],
+    tema: "Morte e renascimento, revelação do oculto, transmutação",
+    materiais: ["Vela preta e vela vermelha escura", "Obsidiana ou pedra preta", "Vinho tinto ou sangue de romã"],
+    cores: ["Preto", "Bordô", "Vermelho profundo"],
+    dignidade: "Queda (lua em queda)",
+    ritual_breve: "A Lua em Escorpião está em queda e neste momento simbolizamos a descida ao submundo: o rito de katábasis, descida ao submundo para recuperar o que está perdido ou oculto seguido pela anábasis, o rito de retorno aos vivos.",
+    invocacao: `Hades, senhor silencioso, de coração brutal que reina no submundo,\nPerséfone, rainha que conhece os dois reinos e os caminhos da descida e da subida\nOsíris, que foi esquartejado, morto e ressuscitado,\nAnúbis, que conduz as almas para onde nada cresce e nada morre\nnesta lua que encara sua queda,\nguia minha alma para a sombra, para que ela possa novamente ascender.\nQue eu traga de volta apenas o que serve à vida.`,
+    passos: [
+      "Apague as luzes. Sente-se em escuridão por alguns minutos. Deixe os olhos se adaptarem ao que não está visível. Mantenha a obsidiana por perto como um talismã que absorverá o miasma",
+      "Acenda primeiro a vela preta (o submundo), depois a vermelha (a carne e o sangue da vida). Queime incenso de mirra.",
+      "Deite-se ao chão e visualize sua alma descendo ao submundo. Deixe sua alma alçar voo livremente até o reino dos mortos. Quem é a divindade que lhe recebe? O que lhe transmite? Qual a sua jornada neste lugar?.",
+      "Quando tiver finalizado, visualize seu retorno, sua ascensão, a alma retornando. O que você teve de deixar para trás? O que retornou com você?",
+      "Derrame o vinho como libação aos mortos e às divindades ctônicas. Enxarque os espíritos se fizer parte de sua prática (beba o vinho ou coma a romã, permitindo que os espíritos se alimentem por seu corpo)."
+    ]
+  },
+  {
+    name: "Sagitário",
+    glyph: "♐",
+    element: "fogo",
+    quality: "Mutável",
+    planeta: "Júpiter",
+    planGlyph: "♃",
+    deities: [
+      { name: "Zeus & Ártemis", tradition: "Helênico" },
+      { name: "Amon-Rá", tradition: "Kemético" }
+    ],
+    tema: "Expansão, visão, filosofia e busca de sentido",
+    materiais: ["Vela azul-royal ou púrpura", "Flecha ou imagem de arco", "Incenso de estoraque ou cedro", "Mapa ou livro sagrado", "Pedra de lápis-lazúli"],
+    cores: ["Amarelo dourado", "Púrpura", "Dourado"],
+    dignidade: "Peregrina",
+    ritual_breve: "A Lua em Sagitário aponta para o horizonte que ainda não existe. Rito de visão, expansão filosófica e renovação do sentido.",
+    invocacao: `Zeus Pater, que rege o vasto e o justo,\nÁrtemis, cuja flecha nunca erra o que foi verdadeiramente mirado\nAmon-Rá, o oculto e o revelado, senhor dos quatro ventos\nnesta lua que aponta além do que os olhos alcançam,\nconfere-me visão e não apenas sonho,\ndireção e não apenas desejo.\nQue minha busca seja sagrada em meu horizonte.`,
+    passos: [
+      "Acenda a vela. Coloque o mapa ou livro sagrado aberto no altar como símbolo de conhecimento em expansão.",
+      "Escreva uma pergunta filosófica ou existencial que ronda sua mente. Não busque resposta — ofereça a pergunta.",
+      "Medite com o lápis-lazúli na mão. Visualize o horizonte se expandindo em todas as direções. Deixe sua alma voar indo ao encontro de uma das divindades invocadas. Qual delas lhe aparece? Por que esta é uma questão que lhe ronda? O que ela tem a ver com você e seus desejos? Deixe-se ser guiado por ela.",
+      "Encerre atirando simbolicamente uma flecha — aponte para o horizonte (ou para cima), declare sua intenção maior, mire naquilo que quer atingir e atire, visualizando a flecha atingir seu objetivo. Após isso, faça uma libação de vinho como oferenda e beba com os Deuses."
+    ]
+  },
+  {
+    name: "Capricórnio",
+    glyph: "♑",
+    element: "terra",
+    quality: "Cardinal",
+    planeta: "Saturno",
+    planGlyph: "♄",
+    deities: [
+      { name: "Héstia", tradition: "Helênico" },
+      { name: "Seth", tradition: "Kemético" }
+    ],
+    tema: "Estrutura, legado, autoridade legítima e disciplina sagrada",
+    materiais: ["Vela preta ou marrom escura", "Pedra de obsidiana ou ônix", "Sal grosso"],
+    cores: ["Preto", "Marrom escuro", "Cinza ardósia"],
+    dignidade: "Exílio (lua em exílio)",
+    ritual_breve: "A Lua em Capricórnio se encontra em exílio: é o ponto do céu em que está mais distante de seu domicílio. É preciso auteridade para sobreviver a este mundo estrangeiro, desértico e desconhecido (Seth), sem esquecer que há um lar para voltar e que este lar possui uma chama viva acesa em si mesmo (Héstia). Este é um rito de estrutura e comprometimento com o longo prazo.",
+    invocacao: `Héstia, guardiã do fogo que nunca se apaga,\ntua chama habita em toda casa\nSeth, senhor do deserto escaldante e das destrutivas tempestades,\ntu que conheces a força que anima nosso ser\nnesta lua que nega o conforto e exige presença,\nensinai-me a permanecer quando tudo desmorona e quando distante está o lar.\nQue meu comprometimento seja minha oferenda.`,
+    passos: [
+      "Sente-se na posição mais ereta e digna possível. Respire com peso e presença. Saturno exige presença corporal.",
+      "Acenda a vela. Trace um círculo de sal ao redor do espaço ritual, marcando de limite e proteção.",
+      "Coloque-se a meditar e deixe sua alma voar até um local deserto e distante. Você será recebido por Héstia e Seth. Héstia é a estrutura do lar que lhe dá forças, as raízes que te sustentam. Seth é o desafio que você deve passar para poder se sair soberano. Seu desafio  não visa sua destruição, mas seu crescimento",
+      "Questione-se nessa meditação aquilo que você precisa deixar para trás para crescer. Hórus batalhou contra Seth para poder ascender ao trono, qual é sua batalha e do que você precisa abrir mão para vencê-la?",
+      "Encerre com silêncio. Não há libação festiva aqui, apenas o respeito quieto diante da estrutura."
+    ]
+  },
+  {
+    name: "Aquário",
+    glyph: "♒",
+    element: "ar",
+    quality: "Fixo",
+    planeta: "Saturno",
+    planGlyph: "♄",
+    deities: [
+      { name: "Dioniso", tradition: "Helênico" },
+      { name: "Amon-Khepri", tradition: "Kemético" }
+    ],
+    tema: "Renovação, coletividade, ruptura com o obsoleto, visão do futuro",
+    materiais: ["Vela amarela ou violeta", "Cristal de quartzo claro", "Recipiente com água (representando o fluxo do Nilo)", "Incenso de violeta ou íris", "Vinho"],
+    cores: ["Amarelo intenso", "Violeta", "Prata"],
+    dignidade: "Peregrina",
+    ritual_breve: "A Lua em Aquário ilumina o que é coletivo e o que rompe com o passado. Dioniso, que dissolve as identidades calcificadas nos mistérios coletivos, e Amon-Khepri, o oculto que se autogera a cada amanhecer, presidem este rito de libertação e visão do que ainda não existe.",
+    invocacao: `Dioniso, tu que desfaz as máscaras que endureceram sobre o rosto,\nsenhor dos mistérios que ninguém atravessa sem ser mudado\nAmon, o oculto, cuja força sustenta o que não é visto,\nKhepri, escaravelho do amanhecer, que te recrias do teu próprio movimento\nnesta lua que recusa o que está calcificado,\ndai-me a visão do que ainda não existe mas já é necessário.\nQue minha liberdade sirva à comunidade.`,
+    passos: [
+      "Abra as janelas e sente-se de frente ao horizonte ou ao céu, encarando sua amplitude.",
+      "Acenda a vela. Coloque a tigela de água no centro, passe os dedos nela enquanto invoca as divindades.",
+      "Medite e deixe sua alma voar ao horizonte Com Amon-Khepri e Dioiso-Zagreu.",
+      "O tema desse Esbá é a comunidade e com os Deuses deve refletir sobre o seu papel nela. De qual comunidade os Deuses lhes trazem implicação? Família? Amigos? Trabalho? Religioso? Movimentos sociais? Deixem-nos te guiar sobre essa questão, que esse voo seja para refletir como você se relaciona com a comunidade e como ela se relaciona com você.",
+      "Reflita sobre a questão: 'O que eu trago ao mundo que ainda não existe?'",
+      "Finalize ligando vinho aos Deuses e bebendo com eles."
+    ]
+
+  },
+  {
+    name: "Peixes",
+    glyph: "♓",
+    element: "agua",
+    quality: "Mutável",
+    planeta: "Júpiter",
+    planGlyph: "♃",
+    deities: [
+      { name: "Poseidon & Dioniso", tradition: "Helênico" },
+      { name: "Khnum & Néftis", tradition: "Kemético" }
+    ],
+    tema: "Dissolução mística, compaixão, sonho, limiar entre mundos",
+    materiais: ["Vela azul-marinho ou roxa", "Âmbar azul ou aquamarina", "Água do mar ou água com sal marinho", "Incenso de nardo ou mirra", "Tecido translúcido como véu", "Vinho"],
+    cores: ["Azul-marinho", "Verde-mar", "Violeta profundo"],
+    dignidade: "Peregrina",
+    ritual_breve: "A Lua em Peixes é dissolução sagrada, o véu entre mundos se afina. Rito de mergulho místico, rendição ao que é maior que o eu e comunicação com o invisível.",
+    invocacao: `Poseidon, que o fundo, onde nenhum olho humano chegou, conhece,\nDioniso do véu vernal, senhor da dissolução que liberta\nNéftis, senhora do limiar, guardiã do que está entre a vida e a morte,\nKhnum, que molda a alma no corpo \nnesta lua que apaga os contornos,\npermite que eu me dissolva no que é sagrado e retorne inteiro.\nQue o véu se levante apenas o quanto suporto ver.`,
+    passos: [
+      "Prepare o espaço com luz de vela. Música de água ou silêncio absoluto.",
+      "Antes do rito, faça banho de imersão com sal marinho e nardo, se possível. A dissolução começa pelo corpo.",
+      "Faça libação de vinho e beba um gole. Deixe que Dioniso adentre seu corpo e auxilie a entrar em um estado ritualístico.",
+      "Acenda a vela dedicada ao ritual. Sente-se com os olhos semifechados e com o véu translúcido sobre a cabeça. Permita que imagens, sons ou sensações surjam sem controle.",
+      "Pense sobre sonhos como sinais do divino. Sinta seu corpo se abrindo para receber esses sinais e se atente aos sonhos que virão a partir do rito.",
+      "Mergulhe as mãos na água salgada como gesto de dissolução com o divino."
+    ]
+  }
+];
+
+function renderSigns() {
+  const grid = document.getElementById('signsGrid');
+  signs.forEach((sign, idx) => {
+    const card = document.createElement('div');
+    card.className = 'sign-card';
+    card.dataset.element = sign.element;
+    card.dataset.idx = idx;
+
+    const elementPT = { fogo: 'Fogo', terra: 'Terra', ar: 'Ar', agua: 'Água' };
+
+    card.innerHTML = `
+      <div class="card-header">
+        <span class="sign-glyph">${sign.glyph}</span>
+        <div class="sign-info">
+          <div class="sign-name">${sign.name}</div>
+          <div class="sign-meta">${sign.planGlyph} ${sign.planeta} · ${sign.quality}</div>
+        </div>
+        <span class="sign-element-badge">${elementPT[sign.element]}</span>
+      </div>
+      <div class="card-body">
+        <div class="deities-row">
+          ${sign.deities.map(d => `
+            <div class="deity-tag">
+              <span>${d.name}</span>
+              <span class="deity-tradition">${d.tradition}</span>
+            </div>
+          `).join('')}
+        </div>
+        <div class="section-label">Tema</div>
+        <div class="ritual-text">${sign.tema}</div>
+        <div class="section-label">Materiais</div>
+        <ul class="items-list">
+          ${sign.materiais.map(m => `<li>${m}</li>`).join('')}
+        </ul>
+         <div class="section-label">Cores</div>
+        <ul class="items-list">
+          ${sign.cores.map(c => `<li>${c}</li>`).join('')}
+        </ul>
+        <div class="section-label">Posição da Lua</div>
+        <ul class="items-list"><li>${sign.dignidade}</li></ul>
+      </div>
+      <button class="expand-btn" onclick="toggleCard(${idx})">
+        Ver Ritual Completo <span class="expand-arrow">▼</span>
+      </button>
+      <div class="card-extra">
+        <div class="section-label">O Ritual</div>
+        <div class="ritual-text">${sign.ritual_breve}</div>
+        <div class="section-label">Invocação</div>
+        <div class="invocation">${sign.invocacao}</div>
+        <div class="section-label">Passos</div>
+        <ol class="steps-list">
+          ${sign.passos.map(p => `<li>${p}</li>`).join('')}
+        </ol>
+      </div>
+    `;
+
+    grid.appendChild(card);
+  });
+}
+
+function toggleCard(idx) {
+  const card = document.querySelector(`.sign-card[data-idx="${idx}"]`);
+  card.classList.toggle('expanded');
+  const btn = card.querySelector('.expand-btn');
+  btn.innerHTML = card.classList.contains('expanded')
+    ? 'Recolher <span class="expand-arrow">▼</span>'
+    : 'Ver Ritual Completo <span class="expand-arrow">▼</span>';
+}
+
+renderSigns();
+
+function setTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  document.getElementById('btn-dark').classList.toggle('active', theme === 'dark');
+  document.getElementById('btn-light').classList.toggle('active', theme === 'light');
+}
+</script>
+</body>
+</html>
