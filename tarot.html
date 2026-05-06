@@ -1,35 +1,91 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Arcanos Menores — Releitura Helênica</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Cinzel:wght@400;600&family=Cinzel+Decorative:wght@400&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #0d0b08;
+  /* ── TEMA ESCURO ── */
+  [data-theme="dark"] {
+    --bg:  #0d0b08;
     --bg2: #111009;
-    --gold: #c9a84c;
+    --bg3: #0f0d09;
+    --bg4: #13100c;
+    --border: #1e1a14;
+    --hover-bg: #13100c80;
+    --gold:      #c9a84c;
     --gold-pale: #e8d5a0;
-    --gold-dim: #7a6330;
-    --text: #e8dfc8;
+    --gold-dim:  #7a6330;
+    --text:     #e8dfc8;
     --text-dim: #b0a890;
 
-    --fogo: #b03a1a;
-    --fogo-pale: #e8845a;
-    --fogo-bg: #1a0c06;
+    --fogo:      #b03a1a; --fogo-pale: #e8845a; --fogo-bg: #1a0c06;
+    --ar:        #8a7a1a; --ar-pale:   #d4c45a; --ar-bg:   #0f0e04;
+    --agua:      #2a5a7a; --agua-pale: #6aafc8; --agua-bg: #050f16;
+    --terra:     #5a6b2a; --terra-pale:#a8bb70; --terra-bg:#080e04;
 
-    --ar: #8a7a1a;
-    --ar-pale: #d4c45a;
-    --ar-bg: #0f0e04;
+    --closing-bg: linear-gradient(135deg, #13100c, #0d0b08);
+    --toggle-bg:          #1e1a14;
+    --toggle-border:      #7a6330;
+    --toggle-text:        #b0a890;
+    --toggle-active-bg:   #7a6330;
+    --toggle-active-text: #0d0b08;
+  }
 
-    --agua: #2a5a7a;
-    --agua-pale: #6aafc8;
-    --agua-bg: #050f16;
+  /* ── TEMA CLARO ── */
+  [data-theme="light"] {
+    --bg:  #f5f0e6;
+    --bg2: #ede7da;
+    --bg3: #e8e2d4;
+    --bg4: #e4ddd0;
+    --border: #cfc8b8;
+    --hover-bg: #e4ddd080;
+    --gold:      #8a1a2a;
+    --gold-pale: #5a0e18;
+    --gold-dim:  #a83040;
+    --text:     #1a1208;
+    --text-dim: #4a3c2c;
 
-    --terra: #5a6b2a;
-    --terra-pale: #a8bb70;
-    --terra-bg: #080e04;
+    --fogo:      #9a2a10; --fogo-pale: #6a1808; --fogo-bg: #f0e4dc;
+    --ar:        #7a6e10; --ar-pale:   #504808; --ar-bg:   #f0eedc;
+    --agua:      #1a4868; --agua-pale: #0e2e44; --agua-bg: #dceaf5;
+    --terra:     #2a5020; --terra-pale:#162e10; --terra-bg:#ddf0da;
+
+    --closing-bg: linear-gradient(135deg, #e8e2d4, #f5f0e6);
+    --toggle-bg:          #e0d8c4;
+    --toggle-border:      #9a6a5a;
+    --toggle-text:        #5a3a2a;
+    --toggle-active-bg:   #8a1a2a;
+    --toggle-active-text: #f5f0e6;
+  }
+
+  /* ── TOGGLE ── */
+  .theme-toggle {
+    position: fixed;
+    top: 22px;
+    right: 24px;
+    z-index: 100;
+    display: flex;
+    background: var(--toggle-bg);
+    border: 1px solid var(--toggle-border);
+    transition: background 0.35s, border-color 0.35s;
+  }
+  .theme-btn {
+    padding: 7px 15px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    color: var(--toggle-text);
+    transition: all 0.3s ease;
+  }
+  .theme-btn.active {
+    background: var(--toggle-active-bg);
+    color: var(--toggle-active-text);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -40,6 +96,7 @@
     font-family: Georgia, 'Times New Roman', serif;
     font-size: 18px;
     line-height: 1.75;
+    transition: background 0.35s ease, color 0.35s ease;
   }
 
   /* ── HEADER ── */
@@ -267,21 +324,21 @@
   .card-entry {
     display: grid;
     grid-template-columns: 120px 1fr;
-    border-bottom: 1px solid #1e1a14;
+    border-bottom: 1px solid var(--border);
     padding: 22px 0;
     gap: 24px;
     transition: background 0.2s;
   }
 
   .card-entry:hover {
-    background: #13100c80;
+    background: var(--hover-bg);
     padding-left: 8px;
   }
 
   .card-id {
     text-align: right;
     padding-right: 24px;
-    border-right: 1px solid #1e1a14;
+    border-right: 1px solid var(--border);
   }
 
   .card-number {
@@ -342,8 +399,8 @@
 
   .court-card {
     padding: 20px;
-    border: 1px solid #1e1a14;
-    background: #0f0d09;
+    border: 1px solid var(--border);
+    background: var(--bg3);
   }
 
   .court-card-title {
@@ -368,7 +425,7 @@
     padding: 40px;
     text-align: center;
     margin-top: 64px;
-    background: linear-gradient(135deg, #13100c, #0d0b08);
+    background: var(--closing-bg);
   }
 
   .closing h2 {
@@ -400,6 +457,11 @@
 </style>
 </head>
 <body>
+
+<div class="theme-toggle">
+  <button class="theme-btn" id="btn-dark" onclick="setTheme('dark')">Noturno</button>
+  <button class="theme-btn active" id="btn-light" onclick="setTheme('light')">Diurno</button>
+</div>
 
 <header>
   <div class="header-ornament">✦ Cosmologia dos Elementos ✦</div>
@@ -1158,6 +1220,14 @@
   </div>
 
 </div>
+
+<script>
+  function setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    document.getElementById('btn-dark').classList.toggle('active', theme === 'dark');
+    document.getElementById('btn-light').classList.toggle('active', theme === 'light');
+  }
+</script>
 
 </body>
 </html>
